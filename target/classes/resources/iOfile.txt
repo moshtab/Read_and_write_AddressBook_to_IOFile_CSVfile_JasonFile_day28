@@ -1,0 +1,9 @@
+
+FirstName=Mohammad, LastName=Mohsin, city=Metpally, state=Telangana, email=abc@gmail.com, phoneNumber=9908514276, zip=505325
+
+
+FirstName=Mohammad, LastName=Sumer, city=Metpally, state=Telangana, email=abdc@gmail.com, phoneNumber=9908514277, zip=505325
+
+
+FirstName=Mohammad, LastName=Sofyan, city=Metpally, state=Telangana, email=abc@gmail.com, phoneNumber=9908514276, zip=505325
+
