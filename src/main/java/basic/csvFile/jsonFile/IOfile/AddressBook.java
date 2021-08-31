@@ -21,40 +21,48 @@ public class AddressBook {
 		ArrayList<Contact> list = new ArrayList<Contact>();
 
 		AddressBook adressBook = new AddressBook(list);
-		AddressBook adressBook2 = new AddressBook(list);
 
 		// Adding contact1 in addressBook
 		System.out.println("Adding contact1 details");
 		adressBook.addContact();
 
-		adressBook.writeContact();
+		// write console details to IO file
+		adressBook.writeIOContact();
+		System.out.println("Reading Io file");
+		adressBook.readIOContact();
+		
+		adressBook.writeJsonContact();
+		adressBook.writeContactToCSV();
+		System.out.println("Reading Jason file");
+		adressBook.readJsonContact();
 		// Adding contact2 in addressBook
-		System.out.println("Adding contact2 details");
-		adressBook.addContact();
+		// System.out.println("Adding contact2 details");
+		// adressBook.addContact();
 
 		// Editing contact1
-		System.out.println("Editing Contact1 details");
-		list.set(0, adressBook.editContact());
+		// System.out.println("Editing Contact1 details");
+		// list.set(0, adressBook.editContact());
 		// Delete contact1
-		list.remove(0);
+		// list.remove(0);
 
 		// Added Multiple addressBooks
-		System.out.println("Adding contact details for adressBook2");
-		adressBook2.addContact();
+		// AddressBook adressBook2 = new AddressBook(list);
+		// System.out.println("Adding contact details for adressBook2");
+		// adressBook2.addContact();
 
 		// searching for Name is present or not
-		for (Contact i : list) {
-			if (i.firstName.contains("Mohsin")) {
-				System.out.println("Name found :" + i.firstName);
-			} else {
-				System.out.println("No match");
-			}
-		}
+		//for (Contact i : list) {
+		//	if (i.firstName.contains("Mohsin")) {
+		//		System.out.println("Name found :" + i.firstName);
+		//	} else {
+	    //			System.out.println("No match");
+		//	}
+	//	}
 
 		// using stream to Display the contacts
-		System.out.println("Displaying the contacts of contactPersons");
-		List<Object> result = list.stream().collect(Collectors.toList());
-		System.out.println(result);
+		// System.out.println("Displaying the contacts of contactPersons");
+		// List<Object> result = list.stream().collect(Collectors.toList());
+		// System.out.println(result);
 
 	}
 
@@ -115,13 +123,30 @@ public class AddressBook {
 
 	}
 
-	public void writeContact() {
+	public void writeIOContact() {
 		new AddressBookIOServiceFile().writeData(list);
 
 	}
 
-	public void readContact() {
+	public void readIOContact() {
 		new AddressBookIOServiceFile().readData();
+
+	}
+
+	public void writeJsonContact() {
+		new AddressBookIOServiceFile().writeJasonData(list);
+
+	}
+
+	public void readJsonContact() {
+		new AddressBookIOServiceFile().readJasonData();
+
+	}
+
+	public void writeContactToCSV() {
+		new AddressBookIOServiceFile().writeCSVData(list);
 		
 	}
+
+	
 }

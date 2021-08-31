@@ -22,7 +22,7 @@ public class Contact {
 	}
 
 	public String toString() {
-		return "\nFirstName=" + firstName + ", LastName=" + lastName + ", city=" + city + ", state=" + state
+		return "\n FirstName=" + firstName + ", LastName=" + lastName + ", city=" + city + ", state=" + state
 				+ ", email=" + email + ", phoneNumber=" + phoneNumber + ", zip=" + zip + "\n";
 	}
 
