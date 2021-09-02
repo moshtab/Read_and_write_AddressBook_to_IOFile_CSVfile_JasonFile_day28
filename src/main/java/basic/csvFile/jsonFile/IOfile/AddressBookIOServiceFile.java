@@ -7,15 +7,20 @@ import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
 import com.opencsv.CSVWriter;
+import com.opencsv.bean.StatefulBeanToCsv;
+import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 public class AddressBookIOServiceFile {
 	public String iOFileName = "src/main/java/resources/iOfile.txt";
-	public String jasonFileName = "src/main/java/resources/jasonFile.txt";
-	public String csvFileName = "src/main/java/resources/CSVFile.txt";
+	public String jasonFileName = "src/main/java/resources/jasonFile.json";
+	public String csvFileName = "src/main/java/resources/CSVFile.csv";
 
 	public void writeData(List<Contact> list) {
 		StringBuffer empBuffer = new StringBuffer();
@@ -41,13 +46,9 @@ public class AddressBookIOServiceFile {
 	}
 
 	public void writeJasonData(List<Contact> list) {
-		StringBuffer empBuffer = new StringBuffer();
-		list.forEach(contact -> {
-			String data = contact.toString().concat("\n");
-			empBuffer.append(data);
-		});
+		
 		Gson gson = new Gson();
-		String jason = gson.toJson(empBuffer.toString());
+		String jason = gson.toJson(list);
 		try {
 			FileWriter writer = new FileWriter(jasonFileName);
 			writer.write(jason);
@@ -78,16 +79,20 @@ public class AddressBookIOServiceFile {
 	}
 
 	public void writeCSVData(List<Contact> list) {
-
 		try (Writer writer = Files.newBufferedWriter(Paths.get(csvFileName));
-				CSVWriter csvWriter = new CSVWriter(writer);) {
-			StringBuffer empBuffer = new StringBuffer();
-			list.forEach(contact -> {
-				String[] data = { contact.toString().concat("\n") };
-				empBuffer.append(data);
-			});
-			writer.write(empBuffer.toString());
-			writer.close();
+				) {
+         StatefulBeanToCsv<Contact> beanToCsv = new StatefulBeanToCsvBuilder<Contact>(writer)
+        		 .withQuotechar(CSVWriter.NO_QUOTE_CHARACTER)
+        		 .build();
+			try {
+				beanToCsv.write(list);
+			} catch (CsvDataTypeMismatchException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (CsvRequiredFieldEmptyException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		} catch (IOException e) {
 

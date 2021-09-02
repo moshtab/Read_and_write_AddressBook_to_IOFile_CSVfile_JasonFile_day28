@@ -10,31 +10,38 @@ public class AddressBook {
 		CONSOLE_IO, FILE_IO, DB_IO, REST_IO
 	}
 
+	List<String[]> ls;
 	List<Contact> list;
 
 	public AddressBook(List<Contact> list2) {
 		this.list = list2;
 	}
 
+	// public AddressBook(List<String[]> ls2) {
+	// this.ls = ls2;
+	// }
+
 	public static void main(String[] args) {
+		// List<String[]> ls = new ArrayList<>();
 
 		ArrayList<Contact> list = new ArrayList<Contact>();
 
 		AddressBook adressBook = new AddressBook(list);
 
 		// Adding contact1 in addressBook
-		System.out.println("Adding contact1 details");
+		// System.out.println("Adding contact1 details");
 		adressBook.addContact();
 
 		// write console details to IO file
 		adressBook.writeIOContact();
 		System.out.println("Reading Io file");
 		adressBook.readIOContact();
-		
+
 		adressBook.writeJsonContact();
 		adressBook.writeContactToCSV();
-		System.out.println("Reading Jason file");
-		adressBook.readJsonContact();
+		// System.out.println("Reading Jason file");
+		// adressBook.readJsonContact();
+		// adressBook.writeContactToCSV();
 		// Adding contact2 in addressBook
 		// System.out.println("Adding contact2 details");
 		// adressBook.addContact();
@@ -51,13 +58,13 @@ public class AddressBook {
 		// adressBook2.addContact();
 
 		// searching for Name is present or not
-		//for (Contact i : list) {
-		//	if (i.firstName.contains("Mohsin")) {
-		//		System.out.println("Name found :" + i.firstName);
-		//	} else {
-	    //			System.out.println("No match");
-		//	}
-	//	}
+		// for (Contact i : list) {
+		// if (i.firstName.contains("Mohsin")) {
+		// System.out.println("Name found :" + i.firstName);
+		// } else {
+		// System.out.println("No match");
+		// }
+		// }
 
 		// using stream to Display the contacts
 		// System.out.println("Displaying the contacts of contactPersons");
@@ -88,6 +95,7 @@ public class AddressBook {
 
 		System.out.println("Enter the Zip");
 		String zip = s.nextLine();
+
 		Contact contact = new Contact(firstName, lastName, city, state, email, phoneNumber, zip);
 
 		list.add(contact);
@@ -117,6 +125,10 @@ public class AddressBook {
 
 		System.out.println("Enter the Zip");
 		String zip = s.nextLine();
+		// String[] str = { firstName, lastName, city, state, email, phoneNumber, zip };
+
+		// ls.add(str);
+
 		Contact contact = new Contact(firstName, lastName, city, state, email, phoneNumber, zip);
 
 		list.add(contact);
@@ -145,8 +157,7 @@ public class AddressBook {
 
 	public void writeContactToCSV() {
 		new AddressBookIOServiceFile().writeCSVData(list);
-		
+
 	}
 
-	
 }
